@@ -62,7 +62,7 @@ int step_clock()
 {
    int count;
    int mpc_load;
-
+   read_inputs_from_file();
    load_mw(current_index);
    last_index=current_index;
 
@@ -74,8 +74,9 @@ int step_clock()
       current_index=mw.micro_ad;
    else if(count)
       current_index++;
-
+   
    timer++;
+   write_outputs_to_file();
    return(trace());
 }
 
@@ -106,6 +107,8 @@ char c;
    char s[N];
    int i,j;
 
+   read_inputs_from_file(); 
+
    myprintf("Input switches:  [%01x%01x%01x%01x]\n",
             sw[3],sw[2],sw[1],sw[0]);
 
@@ -126,6 +129,7 @@ char c;
       }
       myprintf("Input switches:  [%01x%01x%01x%01x]\n",
                sw[3],sw[2],sw[1],sw[0]);
+      write_inputs_to_file();
    }
 }
 
@@ -209,4 +213,57 @@ int store_rom()
 {
    return(0);
 }
+
+int read_inputs_from_file(void)
+{
+   char *fname="./b1_inputs.txt";
+   /*TODO settle on a filename and #define it */
+   char line[80];
+   FILE * fp;
+   int temp,i;
+   for(i=0,temp=0;i<4;i++) temp |= (sw[i]&1)<<i;
+   fp=fopen(fname,"r");
+   if(fp)
+   {
+      while(fgets(line,sizeof(line),fp))
+       { sscanf(line,"Switches:%i",&temp);
+       }
+      fclose(fp);
+    for(i=0;i<4;i++) sw[i] = temp >> i & 1;
+    }
+
+}
+
+int write_inputs_to_file(void)
+{
+   char *fname="./b1_inputs.txt";
+   /*TODO settle on a filename and #define it */
+   FILE * fp;
+   int temp,i;
+   for(i=0,temp=0;i<4;i++) temp |= (sw[i]&1)<<i;
+   fp=fopen(fname,"w");
+   if(fp)
+   {
+      fprintf(fp,"Switches:0x%x",temp);
+       
+      fclose(fp);
+    }
+
+}
+
+int write_outputs_to_file(void)
+{
+   char *fname="./b1_outputs.txt";
+   /*TODO settle on a filename and #define it */
+   FILE * fp;
+   fp=fopen(fname,"w");
+   if(fp)
+   {
+      fprintf(fp,"LEDs:0x%x",mw.data);
+    
+      fclose(fp);
+    }
+
+}
+
 

@@ -227,4 +227,7 @@
     extern int edit_rom();        /* edit ROM                       */
     extern int store_rom();       /* save rom to a file             */
     extern int display_regs();    /* display state (regs,busses,..) */
-
+/* added by segee much later */
+    extern int read_inputs_from_file();
+    extern int write_inputs_to_file();
+    extern int write_inputs_to_file();

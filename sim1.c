@@ -57,7 +57,7 @@ int set_leds()
 *      update the counter (load, count, or no change),
 *      set the output leds.
 **********************************************************************/
-
+#include <unistd.h>
 int step_clock()
 {
    int count;
@@ -77,6 +77,7 @@ int step_clock()
    
    timer++;
    write_outputs_to_file();
+   usleep(10000);
    return(trace());
 }
 
@@ -216,7 +217,7 @@ int store_rom()
 
 int read_inputs_from_file(void)
 {
-   char *fname="./b1_inputs.txt";
+   char *fname="/Volumes/ramdisk/b1_inputs.txt";
    /*TODO settle on a filename and #define it */
    char line[80];
    FILE * fp;
@@ -236,7 +237,7 @@ int read_inputs_from_file(void)
 
 int write_inputs_to_file(void)
 {
-   char *fname="./b1_inputs.txt";
+   char *fname="/Volumes/ramdisk/b1_inputs.txt";
    /*TODO settle on a filename and #define it */
    FILE * fp;
    int temp,i;
@@ -253,15 +254,16 @@ int write_inputs_to_file(void)
 
 int write_outputs_to_file(void)
 {
-   char *fname="./b1_outputs.txt";
+   char *fname="/Volumes/ramdisk/b1_outputs.txt";
    /*TODO settle on a filename and #define it */
    FILE * fp;
    fp=fopen(fname,"w");
    if(fp)
    {
-      fprintf(fp,"LEDs:0x%x",mw.data);
+      fprintf(fp,"LEDs:0x%x",(mw.data&0xf));
     
       fclose(fp);
+      //printf("LEDS are 0x%x\n",(mw.data&0xf));
     }
 
 }

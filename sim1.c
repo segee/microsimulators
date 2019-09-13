@@ -217,7 +217,7 @@ int store_rom()
 
 int read_inputs_from_file(void)
 {
-   char *fname="/Volumes/ramdisk/b1_inputs.txt";
+   char *fname="./i_o_directory/b1_inputs.txt";
    /*TODO settle on a filename and #define it */
    char line[80];
    FILE * fp;
@@ -237,7 +237,7 @@ int read_inputs_from_file(void)
 
 int write_inputs_to_file(void)
 {
-   char *fname="/Volumes/ramdisk/b1_inputs.txt";
+   char *fname="./i_o_directory/b1_inputs.txt";
    /*TODO settle on a filename and #define it */
    FILE * fp;
    int temp,i;
@@ -254,7 +254,7 @@ int write_inputs_to_file(void)
 
 int write_outputs_to_file(void)
 {
-   char *fname="/Volumes/ramdisk/b1_outputs.txt";
+   char *fname="./i_o_directory/b1_outputs.txt";
    /*TODO settle on a filename and #define it */
    FILE * fp;
    fp=fopen(fname,"w");

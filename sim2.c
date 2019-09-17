@@ -63,6 +63,8 @@ int step_clock()
 {
    int count;
    int mpc_load;
+  
+   get_inputs_from_file();
 
    load_mw(current_index);
    last_index=current_index;
@@ -73,14 +75,18 @@ int step_clock()
 
    if((mw.alu_dest&0x01L)==0) ta_reg=f_bus;
    if((mw.alu_dest&0x02L)==0) tb_reg=f_bus;
-   if((mw.alu_dest&0x04L)==0) f_reg=f_bus;
+   if((mw.alu_dest&0x04L)==0) {f_reg=f_bus;write_outputs_to_file();}
 
    if(mw.count==1) current_index++;
 
    if(mpc_load)
    {
       if(mw.bop==0xfL)
+      {
          current_index=(op_code<<4)|(mw.micro_ad&0xfL);
+	 ia_reg=ia_switches;
+	 ib_reg=ib_switches;
+      }
       else
          current_index=mw.micro_ad;
    }
@@ -106,6 +112,7 @@ int reset_board()
    ta_reg=tb_reg=f_reg=a_bus=b_bus=f_bus=0xffL;
    z_bit=c4_bit=c8_bit=0;
    n_bit=zp_bit=1;
+   write_inputs_to_file();
 }
 
 /********************************************************************
@@ -139,6 +146,7 @@ char c;
    {
       case 'g':
                  go_button=(go_button) ? 0 : 1;
+		 write_inputs_to_file();
                  myprintf("Toggle GoButton! New value: %1x ",go_button);
                  if(!go_button)
                     myprintf("[PRESSED]\n");
@@ -172,6 +180,7 @@ char c;
                     request("Input A = ",&(ia_reg),0xffL);
                     request("Input B = ",&(ib_reg),0xffL);
                  }
+		 write_inputs_to_file();
       case 'd':
                  if(logical_data)
                     myprintf("Logical input status: Op=%1lx  IA=%02lx  IB=%02lx  Go=%1x ",
@@ -210,6 +219,7 @@ char c;
                     request("TB_register = ",&(tb_reg),0xffL);
                     request("F_register = ",&(f_reg),0xffL);
                  }
+		 write_outputs_to_file();
                  break;
    }
 }

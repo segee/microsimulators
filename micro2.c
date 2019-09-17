@@ -17,7 +17,9 @@ unsigned char *memory;          /* not used in board 2          */
 myint op_code = 0;              /* op code input switches       */
 int go_button = 1;              /* go button status             */
 myint ia_reg = 0xffL;           /* data input register a        */
-myint ib_reg = 0xffL;           /* data input register b        */
+myint ib_reg = 0xffL;           /* data input register b        */ 
+myint ia_switches=0;            //added by segee for external board
+myint ib_switches=0;
 
 /*---------------------------------------------------------------
 *                    outputs

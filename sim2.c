@@ -7,6 +7,10 @@
 #include "sim.h"
 #include "micro2.h"
 
+int read_inputs_from_file(void);
+int write_inputs_to_file(void);
+int write_outputs_to_file(void);
+
 /********************************************************************
 *             initialize_memory()   (not used in board 1)           *
 ********************************************************************/

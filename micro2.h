@@ -13,6 +13,8 @@ extern myint op_code;                 /* op code input switches       */
 extern int go_button;                 /* go button status             */
 extern myint ia_reg;                  /* data input register a        */
 extern myint ib_reg;                  /* data input register b        */
+extern myint ia_switches;             //added by segee for external board
+extern myint ib_switches;
 
 extern myint f_reg;                   /* result register f            */
 

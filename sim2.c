@@ -368,10 +368,10 @@ int write_inputs_to_file(void)
    fp=fopen(fname,"w");
    if(fp)
    {
-      fprintf(fp,"Go:0x%x",go_button);
-      fprintf(fp,"Op:0x%x",op_code);
-      fprintf(fp,"Ia:0x%x",ia_reg);
-      fprintf(fp,"Ib:0x%x",ib_reg);
+      fprintf(fp,"Go:0x%x\n",go_button);
+      fprintf(fp,"Op:0x%x\n",op_code);
+      fprintf(fp,"Ia:0x%x\n",ia_reg);
+      fprintf(fp,"Ib:0x%x\n",ib_reg);
        
       fclose(fp);
     }

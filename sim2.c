@@ -313,3 +313,70 @@ char c;
          bit[0],bit[1],bit[2],bit[3],bit[4],bit[5]);
 }
 
+int read_inputs_from_file(void)
+{
+   char *fname="./i_o_directory/b2_inputs.txt";
+   /*TODO settle on a filename and #define it */
+   char line[80];
+   FILE * fp;
+   int go,op,ia,ib;
+  
+   go=go_button;
+   op=op_code;
+   ia=ia_reg;
+   ib=ib_reg;
+  
+   fp=fopen(fname,"r");
+   if(fp)
+   {
+      while(fgets(line,sizeof(line),fp))
+       { sscanf(line,"Go:%i",&go);
+	 sscanf(line,"Op:%i",&op);
+	 sscanf(line,"Ia:%i",&ia);
+	 sscanf(line,"Ib:%i",&ib);
+       }
+      fclose(fp);
+      go_button=go;
+      op_code=op;
+      ia_switches=ia;
+      ib_switches=ib;
+    }
+
+}
+
+int write_inputs_to_file(void)
+{
+   char *fname="./i_o_directory/b2_inputs.txt";
+   /*TODO settle on a filename and #define it */
+   FILE * fp;
+   int temp,i;
+   
+   fp=fopen(fname,"w");
+   if(fp)
+   {
+      fprintf(fp,"Go:0x%x",go_button);
+      fprintf(fp,"Op:0x%x",op_code);
+      fprintf(fp,"Ia:0x%x",ia_reg);
+      fprintf(fp,"Ib:0x%x",ib_reg);
+       
+      fclose(fp);
+    }
+
+}
+
+int write_outputs_to_file(void)
+{
+   char *fname="./i_o_directory/b2_outputs.txt";
+   /*TODO settle on a filename and #define it */
+   FILE * fp;
+   fp=fopen(fname,"w");
+   if(fp)
+   {
+      fprintf(fp,"LEDs:0x%x",(f_reg));
+    
+      fclose(fp);
+      //printf("LEDS are 0x%x\n",(mw.data&0xf));
+    }
+
+}
+

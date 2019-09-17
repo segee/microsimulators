@@ -68,7 +68,7 @@ int step_clock()
    int count;
    int mpc_load;
   
-   get_inputs_from_file();
+   read_inputs_from_file();
 
    load_mw(current_index);
    last_index=current_index;

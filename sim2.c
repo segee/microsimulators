@@ -79,7 +79,7 @@ int step_clock()
 
    if((mw.alu_dest&0x01L)==0) ta_reg=f_bus;
    if((mw.alu_dest&0x02L)==0) tb_reg=f_bus;
-   if((mw.alu_dest&0x04L)==0) {f_reg=f_bus;write_outputs_to_file();}
+   if((mw.alu_dest&0x04L)==0) {f_reg=f_bus;write_outputs_to_file();} //LEDs change if F is loaded
 
    if(mw.count==1) current_index++;
 
@@ -88,7 +88,7 @@ int step_clock()
       if(mw.bop==0xfL)
       {
          current_index=(op_code<<4)|(mw.micro_ad&0xfL);
-	 ia_reg=ia_switches;
+	 ia_reg=ia_switches; //IA and IB load from the switches during an op code branch
 	 ib_reg=ib_switches;
       }
       else
@@ -149,7 +149,8 @@ char c;
    switch(c)
    {
       case 'g':
-                 go_button=(go_button) ? 0 : 1;
+                 read_inputs_from_file();
+		 go_button=(go_button) ? 0 : 1;
 		 write_inputs_to_file();
                  myprintf("Toggle GoButton! New value: %1x ",go_button);
                  if(!go_button)
@@ -158,7 +159,8 @@ char c;
                     myprintf("[RELEASED]\n");
                  break;
       case 'i':
-                 if(logical_data)
+                   read_inputs_from_file();
+		   if(logical_data)
                     myprintf("Logical input status: Op=%1lx  IA=%02lx  IB=%02lx  Go=%1x ",
                       op_code,(~ia_reg&0xffL),(~ib_reg&0xffL),go_button);
                  else
@@ -186,7 +188,8 @@ char c;
                  }
 		 write_inputs_to_file();
       case 'd':
-                 if(logical_data)
+                   read_inputs_from_file();
+		   if(logical_data)
                     myprintf("Logical input status: Op=%1lx  IA=%02lx  IB=%02lx  Go=%1x ",
                       op_code,(~ia_reg&0xffL),(~ib_reg&0xffL),go_button);
                  else

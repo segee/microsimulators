@@ -300,6 +300,7 @@ char c;
    char *head2="Z N C4 C8 GO ZP";
    char *head3a=" [Logical]\n";
    char *head3b=" [1=HIGH]\n";
+   read_inputs_from_file();
 
    bit[0] = (z_bit==1)?     'H':'L';
    bit[1] = (n_bit==1)?     'H':'L';

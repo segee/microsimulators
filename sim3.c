@@ -7,6 +7,8 @@
 #include "sim.h"
 #include "micro3.h"
 
+int write_outputs_to_file(void);
+
 /*******************************************************************
 *                     initialize_memory()                          *
 ********************************************************************
@@ -355,6 +357,7 @@ int step_clock()
                    break;
          case 4:   if(mw.r_w==0)
                       leds=data_bus&0xff;
+		      write_outputs_to_file();
                    break;
          case 7:   if(mw.r_w==1)
                       data_bus=(*(memory+(ram*MEMSIZE)+(address_bus&0x7ff)))&0xff;
@@ -507,5 +510,21 @@ char c;
     myprintf("  %02lx   %02lx   %02lx    %02lx   %04lx    %01x",
             a_bus,b_bus,f_bus,data_bus,address_bus,cmicro);
     myprintf("    %01lx   %01lx\n", mw.r_w,mw.vma);
+}
+
+int write_outputs_to_file(void)
+{
+   char *fname="./i_o_directory/b3_outputs.txt";
+   /*TODO settle on a filename and #define it */
+   FILE * fp;
+   fp=fopen(fname,"w");
+   if(fp)
+   {
+      fprintf(fp,"LEDs:0x%x",leds);
+    
+      fclose(fp);
+   
+    }
+
 }
 

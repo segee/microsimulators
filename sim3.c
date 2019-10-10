@@ -407,6 +407,7 @@ int reset_board()
    timer=0;
    acc=sr=sph=spl=marh=marl=pch=pcl=data_in=0;
    a_bus=b_bus=f_bus=data_bus=address_bus=0;
+	leds=0x55;write_outputs_to_file();
 }
 
 /********************************************************************

@@ -374,8 +374,8 @@ int write_inputs_to_file(void)
    {
       fprintf(fp,"Go:0x%x\n",go_button);
       fprintf(fp,"Op:0x%x\n",op_code);
-      fprintf(fp,"Ia:0x%x\n",ia_reg);
-      fprintf(fp,"Ib:0x%x\n",ib_reg);
+      fprintf(fp,"IA:0x%x\n",ia_reg);
+      fprintf(fp,"IB:0x%x\n",ib_reg);
        
       fclose(fp);
     }

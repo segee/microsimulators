@@ -350,8 +350,8 @@ int read_inputs_from_file(void)
       while(fgets(line,sizeof(line),fp))
        { sscanf(line,"Go:%i",&go);
 	 sscanf(line,"Op:%i",&op);
-	 sscanf(line,"Ia:%i",&ia);
-	 sscanf(line,"Ib:%i",&ib);
+	 sscanf(line,"IA:%i",&ia);
+	 sscanf(line,"IB:%i",&ib);
        }
       fclose(fp);
       go_button=go;
